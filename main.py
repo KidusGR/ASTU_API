@@ -41,4 +41,15 @@ class Stalker:
         assPload['variables']['id'] = f"{courseID}"
         assessmentRes = self.session.post(payhead.graphs, headers=self.headers, json=assPload)
         print(f"\n{json.loads(assessmentRes.content)}\n")
-
+    def grade(self, semesterID):
+        print("--- Loading ---")
+        self.semesterID = semesterID
+        semPload = payhead.gradeReport
+        semPload.update({
+            'access-token': resHeaders['access-token'],
+            'client': resHeaders['client'],
+            'uid': resHeaders['uid']
+        })
+        semPload['variables']['id'] = f"{semesterID}"
+        semesterRes = self.session.post(payhead.graphs, headers=self.headers, json=semPload)
+        print(f"\n{json.loads(semesterRes.content)}\n")

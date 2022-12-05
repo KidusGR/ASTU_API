@@ -15,3 +15,4 @@ inst1 = main.Stalker()
 inst1.login()
 
 inst1.asses("805627")
+inst1.grade("36")
