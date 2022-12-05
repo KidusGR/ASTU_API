@@ -27,7 +27,7 @@ class Stalker:
             'uid': resHeaders['uid']
         })
         response = self.session.post(payhead.graphs, headers=self.headers, json=payload)
-        print(f"\n{json.loads(response.content)}\n")
+        return json.loads(response.content)
 
     def asses(self, courseID):
         print("--- Loading ---")
