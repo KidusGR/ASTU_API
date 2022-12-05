@@ -1,0 +1,1 @@
+{"data": {"getContactAddress": {"id": "14008", "country": "ET", "streetAddress": "", "homeTelephone": "", "mobile": "0986112328", "workTelephone": "", "email": "kidmen10@gmail.com", "zone": {"id": "24", "name": "Bole", "__typename": "Zone"}, "woreda": "04", "kebele": "13", "__typename": "ContactAddress"}}}
