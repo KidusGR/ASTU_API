@@ -2,7 +2,7 @@ from requests_html import HTMLSession
 import pandas as pd
 import json
 import payhead
-
+import os
 
 class Stalker:
     def __init__(self):
@@ -12,14 +12,13 @@ class Stalker:
         self.graphs = payhead.graphs
 
     def login(self):
-        print("--- test ---")
+        print("--- Logging in ---")
         res = self.session.post(payhead.baseurl, headers=self.headers, json=payhead.login_payload)
         global resHeaders
         resHeaders = res.headers
-        print(f"\n{json.loads(res.content)}\n")
+        print(f"{json.loads(res.content)}\n")
 
     def fetch(self, payload):
-        print("--- Fetching ---")
         self.payload = payload
         payload.update({
             'access-token': resHeaders['access-token'],
