@@ -28,3 +28,17 @@ class Stalker:
         })
         response = self.session.post(payhead.graphs, headers=self.headers, json=payload)
         print(f"\n{json.loads(response.content)}\n")
+
+    def asses(self, courseID):
+        print("--- Loading ---")
+        self.courseID = courseID
+        assPload = payhead.assessment
+        assPload.update({
+            'access-token': resHeaders['access-token'],
+            'client': resHeaders['client'],
+            'uid': resHeaders['uid']
+        })
+        assPload['variables']['id'] = f"{courseID}"
+        assessmentRes = self.session.post(payhead.graphs, headers=self.headers, json=assPload)
+        print(f"\n{json.loads(assessmentRes.content)}\n")
+

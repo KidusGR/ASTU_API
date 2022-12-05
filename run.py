@@ -14,4 +14,4 @@ payhead.login_payload.update(pload)
 inst1 = main.Stalker()
 inst1.login()
 
-inst1.fetch(payhead.getPerson)
+inst1.asses("805627")
