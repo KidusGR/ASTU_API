@@ -1,6 +1,7 @@
 import main
 import payhead
 import json
+import os
 
 idnumber = "ugr/23346/13"  # input("Enter Your ID: ")
 password = "Strong098"  # input("Enter Your Password: ")
@@ -18,14 +19,20 @@ print("--- fetching ---\n")
 for pload in payhead.fetch_payloads:
     data = inst1.fetch(pload)
     file_name = str(list(data['data'].keys())[0])
-    with open(f"data/{file_name}.json", "w") as file:
+    folder_name = main.folder_name
+    try:
+        os.mkdir(f"data/{folder_name}")
+        os.mkdir(f"data/{folder_name}/info")
+    except:
+        pass
+    with open(f"data/{folder_name}/info/{file_name}.json", "w") as file:
         file.write(json.dumps(data))
         file.close()
 
 
 semesters = []
 courses = []
-with open(f"data/studentAcademicYearSemesters.json") as json_file:
+with open(f"data/{folder_name}/info/studentAcademicYearSemesters.json") as json_file:
     sem_data = json.load(json_file)
     for ids in sem_data['data']["studentAcademicYearSemesters"]:
         try:
@@ -33,7 +40,7 @@ with open(f"data/studentAcademicYearSemesters.json") as json_file:
         except:
             pass
     json_file.close()
-with open(f"data/studentCourseEnrollments.json") as course_json:
+with open(f"data/{folder_name}/info/studentCourseEnrollments.json") as course_json:
     cor_data = json.load(course_json)
     for ids in cor_data['data']['studentCourseEnrollments']:
         try:

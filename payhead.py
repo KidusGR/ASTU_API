@@ -16,6 +16,13 @@ main_header = {
 login_payload = {
 }
 
+person_payload = {
+    'operationName': None,
+    'query': "{\n  person {\n    id\n    fullName\n    __typename\n  }\n}\n",
+    'variables': {
+    }
+}
+
 fetch_payloads = [{
     'operationName': "getPerson",
     'query': "query getPerson($id: ID!) {\n  getPerson(id: $id) {\n    id\n    firstName\n    fatherName\n    grandFatherName\n    amharicFirstName\n    amharicFatherName\n    amharicGrandFatherName\n    gender\n    maritalStatus\n    nationality\n    region {\n      id\n      name\n      __typename\n    }\n    disability\n    dateOfBirth\n    fullNameInAmharic\n    amharicFullName\n    placeOfBirth\n    photoUrl\n    user {\n      userName\n      __typename\n    }\n    applicant {\n      student {\n        classYear\n        program {\n          name\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n",

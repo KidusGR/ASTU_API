@@ -16,7 +16,11 @@ class Stalker:
         res = self.session.post(payhead.baseurl, headers=self.headers, json=payhead.login_payload)
         global resHeaders
         resHeaders = res.headers
-        print(f"{json.loads(res.content)}\n")
+        data = json.loads(res.content)
+        global folder_name
+        folder_name = str(data['data']['user_name']).replace("/", "_")
+        print(folder_name)
+        print(f"{data}\n")
 
     def fetch(self, payload):
         self.payload = payload
