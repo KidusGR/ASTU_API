@@ -19,7 +19,6 @@ class Stalker:
         data = json.loads(res.content)
         global folder_name
         folder_name = str(data['data']['user_name']).replace("/", "_")
-        print(folder_name)
         print(f"{data}\n")
 
     def fetch(self, payload):
