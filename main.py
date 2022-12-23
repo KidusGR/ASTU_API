@@ -1,5 +1,4 @@
 from requests_html import HTMLSession
-import pandas as pd
 import json
 import payhead
 import os
