@@ -13,13 +13,14 @@ pload = {
 
 payhead.login_payload.update(pload)
 inst1 = main.Stalker()
-inst1.login()
+data = inst1.login()
+folder_name = str(data['data']['user_name']).replace("/", "_")
 
 print("--- fetching ---\n")
 for pload in payhead.fetch_payloads:
     data = inst1.fetch(pload)
     file_name = str(list(data['data'].keys())[0])
-    folder_name = main.folder_name
+    folder_name = folder_name
     try:
         os.mkdir(f"data/{folder_name}")
         os.mkdir(f"data/{folder_name}/info")
@@ -51,3 +52,7 @@ with open(f"data/{folder_name}/info/studentCourseEnrollments.json") as course_js
 
 print(semesters)
 print(courses)
+
+# tests
+inst1.asses("792601")
+inst1.grade("34")

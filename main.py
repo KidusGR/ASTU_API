@@ -11,14 +11,10 @@ class Stalker:
         self.graphs = payhead.graphs
 
     def login(self):
-        print("--- Logging in ---")
         res = self.session.post(payhead.baseurl, headers=self.headers, json=payhead.login_payload)
         global resHeaders
         resHeaders = res.headers
-        data = json.loads(res.content)
-        global folder_name
-        folder_name = str(data['data']['user_name']).replace("/", "_")
-        print(f"{data}\n")
+        return json.loads(res.content)
 
     def fetch(self, payload):
         self.payload = payload
