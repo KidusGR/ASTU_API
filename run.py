@@ -18,9 +18,6 @@ print(data)
 
 print("--- fetching ---\n")
 
-
-
 # tests
 
 inst1.fetch()
-
