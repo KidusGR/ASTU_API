@@ -17,6 +17,27 @@ class Stalker:
         global folder_name
         resHeaders = res.headers
         folder_name = str(json.loads(res.content)['data']['user_name']).replace("/", "_")
+        try:
+            os.mkdir('data')
+            os.mkdir(f"data/{folder_name}")
+            os.mkdir(f"data/{folder_name}/info")
+        except:
+            pass
+        return json.loads(res.content)
+
+    def fetch(self, payload):
+        self.payload = payload
+        payload.update({
+            'access-token': resHeaders['access-token'],
+            'client': resHeaders['client'],
+            'uid': resHeaders['uid']
+        })
+        res = self.session.post(payhead.graphs, headers=self.headers, json=payload)
+        data = json.loads(res.content)
+        file_name = str(list(data['data'].keys())[0])
+        with open(f"data/{folder_name}/info/{file_name}.json", "w") as file:
+            file.write(json.dumps(data))
+            file.close()
         return json.loads(res.content)
 
     def get_ids(self):
@@ -39,16 +60,6 @@ class Stalker:
                     pass
             course_json.close()
         return semesters, courses
-
-    def fetch(self, payload):
-        self.payload = payload
-        payload.update({
-            'access-token': resHeaders['access-token'],
-            'client': resHeaders['client'],
-            'uid': resHeaders['uid']
-        })
-        response = self.session.post(payhead.graphs, headers=self.headers, json=payload)
-        return json.loads(response.content)
 
     def asses(self, courseID):
         print("--- Loading ---")
