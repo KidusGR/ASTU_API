@@ -1,6 +1,5 @@
 from requests_html import HTMLSession
 import json
-import payhead
 import os
 
 baseurl = "https://estudent.astu.edu.et/api/auth/sign_in"
@@ -14,7 +13,6 @@ class Stalker:
         self.headers = self.pdata['main_header']
         self.baseurl = baseurl
         self.graphs = graphs
-
 
     def login(self, username, password):
         self.pdata['login_payload']['user_name'] = username
@@ -38,44 +36,8 @@ class Stalker:
         return
 
     def fetch(self):
-
-        def get_ids():
-            semesters = []
-            courses = []
-            with open(f"data/{folder_name}/info/studentAcademicYearSemesters.json") as json_file:
-                sem_data = json.load(json_file)
-                for ids in sem_data['data']["studentAcademicYearSemesters"]:
-                    try:
-                        sem = {}
-                        sem.update({
-                            'id': ids['id'],
-                            'semesterName': ids['semesterName']
-                        })
-                        semesters.append(sem)
-                    except:
-                        pass
-                with open(f"data/{folder_name}/info/semesters.json", "w") as sem_file:
-                    sem_file.write(json.dumps(semesters))
-                    sem_file.close()
-                json_file.close()
-            with open(f"data/{folder_name}/info/studentCourseEnrollments.json") as course_json:
-                cor_data = json.load(course_json)
-                for ids in cor_data['data']['studentCourseEnrollments']:
-                    try:
-                        cor = {}
-                        cor.update({
-                            'id': ids['id'],
-                            'titleAndCode': ids['course']['titleAndCode']
-                        })
-                        courses.append(cor)
-                    except:
-                        pass
-                with open(f"data/{folder_name}/info/courses.json", "w") as cor_file:
-                    cor_file.write(json.dumps(courses))
-                    cor_file.close()
-                course_json.close()
-
-            return
+        semesters = []
+        courses = []
 
         def grade():
             semesters = []
@@ -143,11 +105,42 @@ class Stalker:
                     with open(f"data/{folder_name}/info/{pic_name}.jpeg", "wb") as pic:
                         pic.write(image.content)
                         pic.close()
+
+                elif file_name == "studentAcademicYearSemesters":
+                    for ids in data['data']["studentAcademicYearSemesters"]:
+                        try:
+                            sem = {}
+                            sem.update({
+                                'id': ids['id'],
+                                'semesterName': ids['semesterName']
+                            })
+                            semesters.append(sem)
+                        except:
+                            pass
+                    with open(f"data/{folder_name}/info/semesters.json", "w") as sem_file:
+                        sem_file.write(json.dumps(semesters))
+                        sem_file.close()
+
+                elif file_name == "studentCourseEnrollments":
+                    for ids in data['data']['studentCourseEnrollments']:
+                        try:
+                            cor = {}
+                            cor.update({
+                                'id': ids['id'],
+                                'titleAndCode': ids['course']['titleAndCode']
+                            })
+                            courses.append(cor)
+                        except:
+                            pass
+                    with open(f"data/{folder_name}/info/courses.json", "w") as cor_file:
+                        cor_file.write(json.dumps(courses))
+                        cor_file.close()
+
                 with open(f"data/{folder_name}/info/{file_name}.json", "w") as file:
                     file.write(json.dumps(data))
                     file.close()
 
-            get_ids()
+
             grade()
             asses()
         return
