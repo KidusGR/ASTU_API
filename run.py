@@ -13,8 +13,7 @@ pload = {
 
 payhead.login_payload.update(pload)
 inst1 = main.Stalker()
-data = inst1.login()
-print(data)
+inst1.login()
 
 print("--- fetching ---\n")
 
