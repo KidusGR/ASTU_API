@@ -82,6 +82,7 @@ class Stalker:
             with open(f"data/{folder_name}/info/semesters_info.json", "w") as grade_info:
                 grade_info.write(json.dumps(semesters))
                 grade_info.close()
+
         def asses():
             courses = []
             assPload = payhead.assessment
@@ -120,8 +121,3 @@ class Stalker:
             grade()
             asses()
         return
-
-
-
-
-
