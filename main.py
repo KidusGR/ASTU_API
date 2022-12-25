@@ -41,7 +41,7 @@ class Stalker:
                         semesters.append(sem)
                     except:
                         pass
-                with open(f"data/{folder_name}/info/semesters_info.json", "w") as sem_file:
+                with open(f"data/{folder_name}/info/semesters.json", "w") as sem_file:
                     sem_file.write(json.dumps(semesters))
                     sem_file.close()
                 json_file.close()
@@ -57,13 +57,50 @@ class Stalker:
                         courses.append(cor)
                     except:
                         pass
-                with open(f"data/{folder_name}/info/courses_info.json", "w") as cor_file:
+                with open(f"data/{folder_name}/info/courses.json", "w") as cor_file:
                     cor_file.write(json.dumps(courses))
                     cor_file.close()
                 course_json.close()
 
             return
-        
+
+        def grade():
+            semesters = []
+            semPload = payhead.gradeReport
+            semPload.update({
+                'access-token': resHeaders['access-token'],
+                'client': resHeaders['client'],
+                'uid': resHeaders['uid']
+            })
+            with open(f"data/{folder_name}/info/semesters.json") as sem_file:
+                infos = json.load(sem_file)
+                for info in infos:
+                    semPload['variables']['id'] = f"{info['id']}"
+                    semesterRes = self.session.post(payhead.graphs, headers=self.headers, json=semPload)
+                    semesters.append(json.loads(semesterRes.content))
+                sem_file.close()
+            with open(f"data/{folder_name}/info/semesters_info.json", "w") as grade_info:
+                grade_info.write(json.dumps(semesters))
+                grade_info.close()
+        def asses():
+            courses = []
+            assPload = payhead.assessment
+            assPload.update({
+                'access-token': resHeaders['access-token'],
+                'client': resHeaders['client'],
+                'uid': resHeaders['uid']
+            })
+            with open(f"data/{folder_name}/info/courses.json") as ass_file:
+                infos = json.load(ass_file)
+                for info in infos:
+                    assPload['variables']['id'] = f"{info['id']}"
+                    assessmentRes = self.session.post(payhead.graphs, headers=self.headers, json=assPload)
+                    courses.append(json.loads(assessmentRes.content))
+                ass_file.close()
+            with open(f"data/{folder_name}/info/courses_info.json", "w") as cor_info:
+                cor_info.write(json.dumps(courses))
+                cor_info.close()
+
         if str(list(self.login().keys())[0]) == 'data':
 
             payload = payhead.fetch_payloads
@@ -80,31 +117,11 @@ class Stalker:
                     file.write(json.dumps(data))
                     file.close()
             get_ids()
+            grade()
+            asses()
         return
 
 
-    def asses(self, courseID):
-        print("--- Loading ---")
-        self.courseID = courseID
-        assPload = payhead.assessment
-        assPload.update({
-            'access-token': resHeaders['access-token'],
-            'client': resHeaders['client'],
-            'uid': resHeaders['uid']
-        })
-        assPload['variables']['id'] = f"{courseID}"
-        assessmentRes = self.session.post(payhead.graphs, headers=self.headers, json=assPload)
-        print(f"\n{json.loads(assessmentRes.content)}\n")
 
-    def grade(self, semesterID):
-        print("--- Loading ---")
-        self.semesterID = semesterID
-        semPload = payhead.gradeReport
-        semPload.update({
-            'access-token': resHeaders['access-token'],
-            'client': resHeaders['client'],
-            'uid': resHeaders['uid']
-        })
-        semPload['variables']['id'] = f"{semesterID}"
-        semesterRes = self.session.post(payhead.graphs, headers=self.headers, json=semPload)
-        print(f"\n{json.loads(semesterRes.content)}\n")
+
+
