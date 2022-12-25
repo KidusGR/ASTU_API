@@ -31,28 +31,29 @@ for pload in payhead.fetch_payloads:
         file.close()
 
 
-semesters = []
-courses = []
-with open(f"data/{folder_name}/info/studentAcademicYearSemesters.json") as json_file:
-    sem_data = json.load(json_file)
-    for ids in sem_data['data']["studentAcademicYearSemesters"]:
-        try:
-            semesters.append(ids['id'])
-        except:
-            pass
-    json_file.close()
-with open(f"data/{folder_name}/info/studentCourseEnrollments.json") as course_json:
-    cor_data = json.load(course_json)
-    for ids in cor_data['data']['studentCourseEnrollments']:
-        try:
-            courses.append(ids['id'])
-        except:
-            pass
-    course_json.close()
-
-print(semesters)
-print(courses)
+# semesters = []
+# courses = []
+# with open(f"data/{folder_name}/info/studentAcademicYearSemesters.json") as json_file:
+#     sem_data = json.load(json_file)
+#     for ids in sem_data['data']["studentAcademicYearSemesters"]:
+#         try:
+#             semesters.append(ids['id'])
+#         except:
+#             pass
+#     json_file.close()
+# with open(f"data/{folder_name}/info/studentCourseEnrollments.json") as course_json:
+#     cor_data = json.load(course_json)
+#     for ids in cor_data['data']['studentCourseEnrollments']:
+#         try:
+#             courses.append(ids['id'])
+#         except:
+#             pass
+#     course_json.close()
+#
+# print(semesters)
+# print(courses)
 
 # tests
-inst1.asses("792601")
-inst1.grade("34")
+print(inst1.get_ids())
+# inst1.asses("792601")
+# inst1.grade("34")
