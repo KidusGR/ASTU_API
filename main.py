@@ -21,11 +21,16 @@ class Stalker:
             os.mkdir('data')
             os.mkdir(f"data/{folder_name}")
             os.mkdir(f"data/{folder_name}/info")
+            data = json.loads(res.content)
+            with open(f"data/{folder_name}/info/Login_info.json", "w") as login_file:
+                login_file.write(json.dumps(data))
         except:
             pass
-        return json.loads(res.content)
+
+        return
 
     def fetch(self):
+
         def get_ids():
             semesters = []
             courses = []
@@ -101,8 +106,13 @@ class Stalker:
             with open(f"data/{folder_name}/info/courses_info.json", "w") as cor_info:
                 cor_info.write(json.dumps(courses))
                 cor_info.close()
-
-        if str(list(self.login().keys())[0]) == 'data':
+        try:
+            with open(f"data/{folder_name}/info/Login_info.json") as log_file:
+                log_info = json.load(log_file)
+                log_file.close()
+        except:
+            log_info = {None: None}
+        if str(list(log_info.keys())[0]) == 'data':
 
             payload = payhead.fetch_payloads
             for pload in payload:
@@ -114,9 +124,20 @@ class Stalker:
                 res = self.session.post(payhead.graphs, headers=self.headers, json=pload)
                 data = json.loads(res.content)
                 file_name = str(list(data['data'].keys())[0])
+
+                if file_name == "getPerson":
+                    pic_name = f"{data['data']['getPerson']['firstName']}_{data['data']['getPerson']['fatherName']}_{data['data']['getPerson']['grandFatherName']}"
+                    image = self.session.get(
+                        f"https://estudent.astu.edu.et{data['data']['getPerson']['photoUrl']}",
+                        headers=self.headers
+                    )
+                    with open(f"data/{folder_name}/info/{pic_name}.jpeg", "wb") as pic:
+                        pic.write(image.content)
+                        pic.close()
                 with open(f"data/{folder_name}/info/{file_name}.json", "w") as file:
                     file.write(json.dumps(data))
                     file.close()
+
             get_ids()
             grade()
             asses()
