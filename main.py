@@ -10,13 +10,16 @@ graphs = "https://estudent.astu.edu.et/api//graphql"
 class Stalker:
     def __init__(self):
         self.session = HTMLSession()
-        self.headers = payhead.main_header
+        self.pdata = json.load(open('payhead.json'))
+        self.headers = self.pdata['main_header']
         self.baseurl = baseurl
         self.graphs = graphs
-        self.pdata = json.load(open('payhead.json'))
 
-    def login(self):
-        res = self.session.post(baseurl, headers=self.headers, json=payhead.login_payload)
+
+    def login(self, username, password):
+        self.pdata['login_payload']['user_name'] = username
+        self.pdata['login_payload']['password'] = password
+        res = self.session.post(baseurl, headers=self.headers, json=self.pdata['login_payload'])
         global resHeaders
         global folder_name
         resHeaders = res.headers
@@ -76,7 +79,7 @@ class Stalker:
 
         def grade():
             semesters = []
-            semPload = payhead.gradeReport
+            semPload = self.pdata["gradeReport"]
             semPload.update({
                 'access-token': resHeaders['access-token'],
                 'client': resHeaders['client'],
@@ -95,7 +98,7 @@ class Stalker:
 
         def asses():
             courses = []
-            assPload = payhead.assessment
+            assPload = self.pdata["assessment"]
             assPload.update({
                 'access-token': resHeaders['access-token'],
                 'client': resHeaders['client'],
@@ -120,7 +123,7 @@ class Stalker:
             log_info = {None: None}
         if str(list(log_info.keys())[0]) == 'data':
 
-            payload = payhead.fetch_payloads
+            payload = self.pdata['fetch_payloads']
             for pload in payload:
                 pload.update({
                     'access-token': resHeaders['access-token'],
