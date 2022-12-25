@@ -17,8 +17,8 @@ data = inst1.login()
 
 
 print("--- fetching ---\n")
-for pload in payhead.fetch_payloads:
-    data = inst1.fetch(pload)
+
+data = inst1.fetch()
 
 # tests
 

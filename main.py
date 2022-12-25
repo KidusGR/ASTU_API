@@ -25,20 +25,21 @@ class Stalker:
             pass
         return json.loads(res.content)
 
-    def fetch(self, payload):
-        self.payload = payload
-        payload.update({
-            'access-token': resHeaders['access-token'],
-            'client': resHeaders['client'],
-            'uid': resHeaders['uid']
-        })
-        res = self.session.post(payhead.graphs, headers=self.headers, json=payload)
-        data = json.loads(res.content)
-        file_name = str(list(data['data'].keys())[0])
-        with open(f"data/{folder_name}/info/{file_name}.json", "w") as file:
-            file.write(json.dumps(data))
-            file.close()
-        return json.loads(res.content)
+    def fetch(self):
+        payload = payhead.fetch_payloads
+        for pload in payload:
+            pload.update({
+                'access-token': resHeaders['access-token'],
+                'client': resHeaders['client'],
+                'uid': resHeaders['uid']
+            })
+            res = self.session.post(payhead.graphs, headers=self.headers, json=pload)
+            data = json.loads(res.content)
+            file_name = str(list(data['data'].keys())[0])
+            with open(f"data/{folder_name}/info/{file_name}.json", "w") as file:
+                file.write(json.dumps(data))
+                file.close()
+        return
 
     def get_ids(self):
         semesters = []
