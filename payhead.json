@@ -177,20 +177,20 @@
       "query": "{\n  complaintCalendar\n}\n",
       "variables": {
       }
+    },
+    {
+      "operationName": "gradeReport",
+      "query": "query gradeReport($id: ID!) {\n  gradeReport(id: $id) {\n    id\n    isModular\n    prevGpa {\n      id\n      status\n      currentSemesterTotalCreditHour\n      currentSemesterTotalGradePoint\n      semesterGpa\n      cumulativeGpa\n      totalCreditHour\n      totalGradePoint\n      __typename\n    }\n    gpa {\n      id\n      status\n      currentSemesterTotalCreditHour\n      currentSemesterTotalGradePoint\n      semesterGpa\n      cumulativeGpa\n      totalCreditHour\n      totalGradePoint\n      __typename\n    }\n    academicYearSemester {\n      id\n      semesterName\n      __typename\n    }\n    courseEnrollments {\n      id\n      course {\n        id\n        courseCode\n        courseTitle\n        creditHour\n        ects\n        __typename\n      }\n      studentGrade {\n        id\n        letterGrade\n        gradePoint\n        repeatedLetterGrade\n        complainable\n        gradeComplaint {\n          id\n          __typename\n        }\n        modular {\n          id\n          moduleTitle\n          moduleCode\n          moduleEcts\n          moduleType\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n",
+      "variables": {
+        "id": ""
+      }
+    },
+    {
+      "operationName": "assessmentResultForEnrollment",
+      "query": "query assessmentResultForEnrollment($id: ID!) {\n  assessmentResultForEnrollment(id: $id) {\n    id\n    instructorName\n    sumOfMaximumMark\n    sumOfResults\n    course {\n      id\n      courseTitle\n      courseCode\n      __typename\n    }\n    studentGrade {\n      id\n      letterGrade\n      __typename\n    }\n    assessmentResults {\n      id\n      result\n      assessment {\n        id\n        assessmentName\n        maximumMark\n        assessmentType\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n",
+      "variables": {
+        "id": ""
+      }
     }
-  ],
-  "gradeReport": {
-    "operationName": "gradeReport",
-    "query": "query gradeReport($id: ID!) {\n  gradeReport(id: $id) {\n    id\n    isModular\n    prevGpa {\n      id\n      status\n      currentSemesterTotalCreditHour\n      currentSemesterTotalGradePoint\n      semesterGpa\n      cumulativeGpa\n      totalCreditHour\n      totalGradePoint\n      __typename\n    }\n    gpa {\n      id\n      status\n      currentSemesterTotalCreditHour\n      currentSemesterTotalGradePoint\n      semesterGpa\n      cumulativeGpa\n      totalCreditHour\n      totalGradePoint\n      __typename\n    }\n    academicYearSemester {\n      id\n      semesterName\n      __typename\n    }\n    courseEnrollments {\n      id\n      course {\n        id\n        courseCode\n        courseTitle\n        creditHour\n        ects\n        __typename\n      }\n      studentGrade {\n        id\n        letterGrade\n        gradePoint\n        repeatedLetterGrade\n        complainable\n        gradeComplaint {\n          id\n          __typename\n        }\n        modular {\n          id\n          moduleTitle\n          moduleCode\n          moduleEcts\n          moduleType\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n",
-    "variables": {
-      "id": ""
-    }
-  },
-  "assessment": {
-    "operationName": "assessmentResultForEnrollment",
-    "query": "query assessmentResultForEnrollment($id: ID!) {\n  assessmentResultForEnrollment(id: $id) {\n    id\n    instructorName\n    sumOfMaximumMark\n    sumOfResults\n    course {\n      id\n      courseTitle\n      courseCode\n      __typename\n    }\n    studentGrade {\n      id\n      letterGrade\n      __typename\n    }\n    assessmentResults {\n      id\n      result\n      assessment {\n        id\n        assessmentName\n        maximumMark\n        assessmentType\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n",
-    "variables": {
-      "id": ""
-    }
-  }
+  ]
 }
