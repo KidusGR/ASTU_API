@@ -15,6 +15,11 @@
       }
     },
     {
+      "operationName": "user",
+      "variables": {},
+      "query": "query user {\n  user {\n    id\n    userName\n    email\n    __typename\n  }\n}\n"
+    },
+    {
       "operationName": null,
       "query": "{\n  person {\n    id\n    fullName\n    __typename\n  }\n}\n",
       "variables": {
@@ -177,6 +182,71 @@
       "query": "{\n  complaintCalendar\n}\n",
       "variables": {
       }
+    },
+    {
+      "operationName": null,
+      "variables": {},
+      "query": "{\n  studentCurriculumType\n}\n"
+    },
+    {
+      "operationName": null,
+      "variables": {},
+      "query": "{\n  studentCurriculum {\n    id\n    curriculumType\n    offeredAt\n    curriculumCourses {\n      id\n      course {\n        id\n        courseCode\n        courseTitle\n        ects\n        creditHour\n        __typename\n      }\n      coursePreRequisites {\n        id\n        course {\n          id\n          courseTitle\n          courseCode\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n"
+    },
+    {
+      "operationName": null,
+      "variables": {},
+      "query": "{\n  registrationStatus\n}\n"
+    },
+    {
+      "operationName": null,
+      "variables": {},
+      "query": "{\n  registrationSlip {\n    id\n    cafeStatus\n    academicYearSemester {\n      id\n      semesterName\n      __typename\n    }\n    student {\n      id\n      idNumber\n      section\n      classYear\n      status\n      program {\n        id\n        fullName\n        __typename\n      }\n      applicant {\n        id\n        admissionYear\n        admission {\n          id\n          name\n          __typename\n        }\n        person {\n          id\n          fullName\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    courseEnrollments {\n      id\n      instructorName\n      course {\n        id\n        courseCode\n        courseTitle\n        ects\n        creditHour\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n"
+    },
+    {
+      "operationName": null,
+      "variables": {},
+      "query": "{\n  courseAudit {\n    id\n    courseTitle\n    courseCode\n    ects\n    creditHour\n    courseDescription\n    __typename\n  }\n}\n"
+    },
+    {
+      "operationName": null,
+      "variables": {},
+      "query": "{\n  payment {\n    status\n    lbl\n    employee {\n      id\n      person {\n        id\n        fullName\n        __typename\n      }\n      __typename\n    }\n    pType\n    aysCy\n    price\n    paymentStatus\n    __typename\n  }\n}\n"
+    },
+    {
+      "operationName": null,
+      "variables": {},
+      "query": "{\n  myDorm {\n    id\n    bed {\n      name\n      room {\n        name\n        block {\n          name\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n"
+    },
+    {
+      "operationName": null,
+      "variables": {},
+      "query": "{\n  addDropStatus\n}\n"
+    },
+    {
+      "operationName": null,
+      "variables": {},
+      "query": "{\n  withdrawalStatus\n}\n"
+    },
+    {
+      "operationName": null,
+      "variables": {},
+      "query": "{\n  reasonGroup\n}\n"
+    },
+    {
+      "operationName": null,
+      "variables": {},
+      "query": "{\n  clearanceList {\n    id\n    reason\n    hodStatus\n    policeStatus\n    sscStatus\n    proctorStatus\n    librarianStatus\n    academicYearSemester {\n      semesterName\n      __typename\n    }\n    student {\n      idNumber\n      applicant {\n        person {\n          fullName\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n"
+    },
+    {
+      "operationName": null,
+      "variables": {},
+      "query": "{\n  studentGradeComplaints {\n    id\n    oldLetterGrade\n    newLetterGrade\n    approvalStatus\n    studentGrade {\n      id\n      courseEnrollment {\n        id\n        course {\n          id\n          courseTitle\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    courseAssignment {\n      id\n      employee {\n        id\n        person {\n          id\n          fullName\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n"
+    },
+    {
+      "operationName": null,
+      "variables": {},
+      "query": "{\n  pendingCourseExemptions {\n    id\n    instituteName\n    documentUrl\n    academicYear {\n      year\n      __typename\n    }\n    exemptionEquivalentAcademicSemesters {\n      id\n      academicYearSemester {\n        semesterName\n        __typename\n      }\n      __typename\n    }\n    courseExemptionDetails {\n      id\n      course {\n        courseCode\n        courseTitle\n        titleAndCode\n        __typename\n      }\n      equivalentCourseName\n      equivalentCourseCreditHour\n      equivalentCourseEcts\n      gradeOrMark\n      approval\n      __typename\n    }\n    __typename\n  }\n}\n"
     },
     {
       "operationName": "gradeReport",
