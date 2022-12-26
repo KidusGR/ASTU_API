@@ -86,7 +86,10 @@ class Stalker:
                 else:
                     res = self.session.post(graphs, headers=self.headers, json=pload)
                     data = json.loads(res.content)
-                    file_name = str(list(data['data'].keys())[0])
+                    if b'"data":null,' in res.content:
+                        continue
+                    else:
+                        file_name = str(list(data['data'].keys())[0])
 
                 if file_name == "getPerson":
                     pic_name = f"{data['data']['getPerson']['firstName']}_{data['data']['getPerson']['fatherName']}_{data['data']['getPerson']['grandFatherName']}"

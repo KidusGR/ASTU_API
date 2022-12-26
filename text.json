@@ -1,0 +1,15 @@
+{
+  "operationName": "editApplicant",
+  "variables": {
+    "id": "21872",
+    "admissionId": "1",
+    "classYearId": "1",
+    "programId": "19",
+    "academicYearId": "13",
+    "tuitionType": "",
+    "fullNameInAmharic": "ቅዱስ ግዛው መኩሪያ",
+    "registrationNumber": "370785",
+    "matriculationResult": 422
+  },
+  "query": "mutation editApplicant($id: ID!, $admissionId: ID!, $classYearId: ID!, $programId: ID!, $academicYearId: ID!, $tuitionType: String!, $fullNameInAmharic: String!, $registrationNumber: String!, $matriculationResult: Int!) {\n  editApplicant(id: $id, admissionId: $admissionId, classYearId: $classYearId, programId: $programId, academicYearId: $academicYearId, tuitionType: $tuitionType, fullNameInAmharic: $fullNameInAmharic, registrationNumber: $registrationNumber, matriculationResult: $matriculationResult) {\n    id\n    fullNameInAmharic\n    admissionStatus\n    declaration\n    tempIdNumber\n    registrationNumber\n    matriculationResult\n    tuitionType\n    __typename\n  }\n}\n"
+}
