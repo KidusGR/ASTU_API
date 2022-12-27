@@ -1,9 +1,11 @@
 from requests_html import HTMLSession
 import json
 import os
+import shutil
 
-baseurl = "https://estudent.astu.edu.et/api/auth/sign_in"
-graphs = "https://estudent.astu.edu.et/api//graphql"
+baseurl = "https://estudent.astu.edu.et/api/auth/sign_in"  # Post
+graphs = "https://estudent.astu.edu.et/api//graphql"  # Post
+sign_out = "https://estudent.astu.edu.et/api/auth/sign_out"  # Get
 
 
 class Stalker:
@@ -105,3 +107,14 @@ class Stalker:
                     file.close()
 
         return
+
+    def logout(self):
+
+        self.headers.update({
+            'access-token': self.pdata["resHeaders"]['access-token'],
+            'client': self.pdata["resHeaders"]['client'],
+            'uid': self.pdata["resHeaders"]['uid']
+        })
+        res = self.session.get(sign_out, headers=self.headers)
+        shutil.rmtree(f"./data/{self.pdata['folder_name']}")
+        return json.loads(res.content)
