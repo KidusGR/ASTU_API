@@ -38,9 +38,7 @@ class Stalker:
         return
 
     def fetch(self):
-        semesters = []
-        courses = []
-
+        
         try:
             with open(f"data/{self.pdata['folder_name']}/info/Login_info.json") as log_file:
                 log_info = json.load(log_file)
