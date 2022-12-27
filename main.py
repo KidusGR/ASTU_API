@@ -59,9 +59,9 @@ class Stalker:
 
                 if pload['operationName'] == "gradeReport":
                     sems = []
-                    with open(f"data/{self.pdata['folder_name']}/info/semesters.json") as sem_file:
+                    with open(f"data/{self.pdata['folder_name']}/info/studentAcademicYearSemesters.json") as sem_file:
                         infos = json.load(sem_file)
-                        for info in infos:
+                        for info in infos['data']["studentAcademicYearSemesters"]:
                             pload['variables']['id'] = f"{info['id']}"
                             res = self.session.post(graphs, headers=self.headers, json=pload)
                             sems.append(json.loads(res.content))
@@ -72,9 +72,9 @@ class Stalker:
 
                 elif pload['operationName'] == "assessmentResultForEnrollment":
                     cors = []
-                    with open(f"data/{self.pdata['folder_name']}/info/courses.json") as ass_file:
+                    with open(f"data/{self.pdata['folder_name']}/info/studentCourseEnrollments.json") as ass_file:
                         infos = json.load(ass_file)
-                        for info in infos:
+                        for info in infos['data']['studentCourseEnrollments']:
                             pload['variables']['id'] = f"{info['id']}"
                             res = self.session.post(graphs, headers=self.headers, json=pload)
                             cors.append(json.loads(res.content))
@@ -100,30 +100,6 @@ class Stalker:
                     with open(f"data/{self.pdata['folder_name']}/info/{pic_name}.jpeg", "wb") as pic:
                         pic.write(image.content)
                         pic.close()
-
-                elif file_name == "studentAcademicYearSemesters":
-                    for ids in data['data']["studentAcademicYearSemesters"]:
-                        sem = {}
-                        sem.update({
-                            'id': ids['id'],
-                            'semesterName': ids['semesterName']
-                        })
-                        semesters.append(sem)
-                    with open(f"data/{self.pdata['folder_name']}/info/semesters.json", "w") as sem_file:
-                        sem_file.write(json.dumps(semesters))
-                        sem_file.close()
-
-                elif file_name == "studentCourseEnrollments":
-                    for ids in data['data']['studentCourseEnrollments']:
-                        cor = {}
-                        cor.update({
-                            'id': ids['id'],
-                            'titleAndCode': ids['course']['titleAndCode']
-                        })
-                        courses.append(cor)
-                    with open(f"data/{self.pdata['folder_name']}/info/courses.json", "w") as cor_file:
-                        cor_file.write(json.dumps(courses))
-                        cor_file.close()
 
                 with open(f"data/{self.pdata['folder_name']}/info/{file_name}.json", "w") as file:
                     file.write(json.dumps(data))
