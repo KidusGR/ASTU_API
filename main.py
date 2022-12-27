@@ -41,8 +41,6 @@ class Stalker:
         except:
             pass
 
-        return
-
     def fetch(self):
         try:
             with open(f"data/{self.pdata['folder_name']}/info/Login_info.json") as log_file:
@@ -103,9 +101,8 @@ class Stalker:
                     file.write(json.dumps(data))
                     file.close()
 
-        return
-
     def logout(self):
         res = self.session.get(sign_out, headers=self.headers)
         shutil.rmtree(f"./data/{self.pdata['folder_name']}")
+
         return json.loads(res.content)
