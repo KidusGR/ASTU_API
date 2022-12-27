@@ -26,7 +26,8 @@ class Stalker:
             self.pdata.update({
                 "folder_name": str(json.loads(res.content)['data']['user_name']).replace("/", "_")
             })
-            os.mkdir('data')
+            if not os.path.exists('./data'):
+                os.mkdir('data')
             os.mkdir(f"data/{self.pdata['folder_name']}")
             os.mkdir(f"data/{self.pdata['folder_name']}/info")
             data = json.loads(res.content)
@@ -38,7 +39,7 @@ class Stalker:
         return
 
     def fetch(self):
-        
+
         try:
             with open(f"data/{self.pdata['folder_name']}/info/Login_info.json") as log_file:
                 log_info = json.load(log_file)
