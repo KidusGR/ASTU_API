@@ -20,8 +20,11 @@ class Stalker:
         self.pdata['login_payload']['user_name'] = username
         self.pdata['login_payload']['password'] = password
         res = self.session.post(baseurl, headers=self.headers, json=self.pdata['login_payload'])
-        self.pdata.update({
-            "resHeaders": res.headers
+
+        self.headers.update({
+            'access-token': res.headers['access-token'],
+            'client': res.headers['client'],
+            'uid': res.headers['uid']
         })
         print(f"{json.loads(res.content)}")
         try:
@@ -41,7 +44,6 @@ class Stalker:
         return
 
     def fetch(self):
-
         try:
             with open(f"data/{self.pdata['folder_name']}/info/Login_info.json") as log_file:
                 log_info = json.load(log_file)
@@ -52,11 +54,6 @@ class Stalker:
 
             payload = self.pdata['fetch_payloads']
             for pload in payload:
-                pload.update({
-                    'access-token': self.pdata["resHeaders"]['access-token'],
-                    'client': self.pdata["resHeaders"]['client'],
-                    'uid': self.pdata["resHeaders"]['uid']
-                })
 
                 if pload['operationName'] == "gradeReport":
                     sems = []
@@ -109,12 +106,6 @@ class Stalker:
         return
 
     def logout(self):
-
-        self.headers.update({
-            'access-token': self.pdata["resHeaders"]['access-token'],
-            'client': self.pdata["resHeaders"]['client'],
-            'uid': self.pdata["resHeaders"]['uid']
-        })
         res = self.session.get(sign_out, headers=self.headers)
         shutil.rmtree(f"./data/{self.pdata['folder_name']}")
         return json.loads(res.content)
