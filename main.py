@@ -20,17 +20,17 @@ class Stalker:
         self.pdata['login_payload']['user_name'] = username
         self.pdata['login_payload']['password'] = password
         res = self.session.post(baseurl, headers=self.headers, json=self.pdata['login_payload'])
-
-        self.headers.update({
-            'access-token': res.headers['access-token'],
-            'client': res.headers['client'],
-            'uid': res.headers['uid']
-        })
-        print(f"{json.loads(res.content)}")
         try:
+            self.headers.update({
+                'access-token': res.headers['access-token'],
+                'client': res.headers['client'],
+                'uid': res.headers['uid']
+            })
+
             self.pdata.update({
                 "folder_name": str(json.loads(res.content)['data']['user_name']).replace("/", "_")
             })
+
             if not os.path.exists('./data'):
                 os.mkdir('data')
             os.mkdir(f"data/{self.pdata['folder_name']}")
@@ -40,6 +40,7 @@ class Stalker:
                 login_file.write(json.dumps(data))
         except:
             pass
+        print(f"{json.loads(res.content)}")
 
     def fetch(self):
         try:
