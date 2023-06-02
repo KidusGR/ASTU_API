@@ -3,9 +3,9 @@ import json
 import os
 import shutil
 
-baseurl = "https://estudent.astu.edu.et/api/auth/sign_in"  # Post
-graphs = "https://estudent.astu.edu.et/api//graphql"  # Post
-sign_out = "https://estudent.astu.edu.et/api/auth/sign_out"  # Get
+baseurl = "http://10.240.1.89/api/auth/sign_in"  # Post
+graphs = "http://10.240.1.89/api//graphql"  # Post
+sign_out = "http://10.240.1.89/api/auth/sign_out"  # Get
 
 
 class Stalker:
